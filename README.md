@@ -1,19 +1,11 @@
 # 📉 ChurnGuard - Customer Churn Prediction App
 
+**Live Demo**: [👉 Open App](https://customer-churnguard.streamlit.app/)
+
 **AI-Powered Customer Churn Predictor with Business ROI Calculator**  
 Built with XGBoost, scikit-learn Pipeline, SHAP & Streamlit.
 
 A clean, modern, and business-focused ML project ideal for freelancing.
-
-## Live Demo
-*(Add link after deploying on Streamlit Cloud)*
-
-## Screenshots
-
-![Low Churn Risk](screenshots/Screenshot 2026-04-20 141918.png)
-![High Churn Risk](screenshots/Screenshot 2026-04-20 171244.png)
-![Business ROI Calculator](screenshots/Screenshot 2026-04-20 172600.png)
-![SHAP Explanation](screenshots\Screenshot 2026-04-20 171612.png)
 
 ## ✨ Key Features
 - Interactive Single Customer Prediction with beautiful gauge
@@ -77,9 +69,6 @@ customer-churn-predictor/
    streamlit run app.py
    ```
 
-## 📸 Screenshots
-(Add 6-8 high-quality screenshots in the `screenshots/` folder)
-
 ## 📈 Business Impact
 Helps telecom and SaaS companies:
 - Identify high-risk customers early
@@ -87,8 +76,8 @@ Helps telecom and SaaS companies:
 - Save significant revenue through proactive campaigns
 
 ## 🔮 Future Enhancements
-Bulk prediction with results download
-Model comparison dashboard
-Docker deployment
+- Bulk prediction with results download
+- Model comparison dashboard
+- Docker deployment
 
 ---
