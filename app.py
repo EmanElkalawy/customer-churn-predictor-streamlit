@@ -186,4 +186,4 @@ with st.expander("🔍 Explain This Prediction (SHAP Analysis)", expanded=False)
         fig_imp = px.bar(importance, orientation='h', title="Top Important Features")
         st.plotly_chart(fig_imp, width='stretch')
 
-st.caption("ChurnGuard • XGBoost + Pipeline + SHAP + Business ROI Calculator • Strong Freelance Portfolio Project")
+st.caption("ChurnGuard • XGBoost + Pipeline + SHAP + Business ROI Calculator ")
