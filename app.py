@@ -9,7 +9,11 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-st.set_page_config(page_title="ChurnGuard", page_icon="📉", layout="wide")
+st.set_page_config(
+    page_title="ChurnGuard",
+    page_icon="📉",
+    layout="wide"
+)
 
 # Custom CSS
 st.markdown("""
@@ -18,7 +22,7 @@ st.markdown("""
     .sub-header {font-size: 1.35rem; text-align: center; color: #b0b0b0; margin-bottom: 2rem;}
     .high-risk {background-color: #3c1a1a; padding: 18px; border-radius: 12px; border-left: 7px solid #FF4B4B; color: white;}
     .low-risk  {background-color: #1a3c34; padding: 18px; border-radius: 12px; border-left: 7px solid #00C853; color: white;}
-    .roi-box {background-color: #1e3a5f; padding: 20px; border-radius: 12px; border-left: 7px solid #00BFFF;}
+    .roi-box {background-color: #1e3a5f; padding: 20px; border-radius: 12px;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -51,6 +55,10 @@ senior = st.sidebar.checkbox("Senior Citizen")
 partner = st.sidebar.checkbox("Has Partner")
 dependents = st.sidebar.checkbox("Has Dependents")
 paperless = st.sidebar.checkbox("Paperless Billing")
+
+# Reset Button
+if st.sidebar.button("🔄 Reset All Inputs"):
+    st.rerun()
 
 # Input Data
 data = {
@@ -120,46 +128,39 @@ if probability > 0.5:
     st.subheader("💡 Recommended Retention Strategies")
     st.info("• Offer discount or loyalty package  \n• Upgrade to Fiber optic + Tech Support  \n• Personalized retention call/email")
 
-# ==================== NEW: BUSINESS ROI CALCULATOR ====================
+# Business ROI Calculator
 st.subheader("💰 Business ROI / Savings Calculator")
-
-with st.expander("Calculate Potential Savings from Retention Campaign", expanded=True):
+with st.expander("Calculate Potential Annual Savings", expanded=True):
     col_a, col_b = st.columns(2)
     
     with col_a:
         num_customers = st.number_input("Number of Similar Customers", min_value=10, value=500, step=50)
-        avg_customer_value = st.number_input("Average Monthly Revenue per Customer ($)", min_value=10.0, value=70.0, step=5.0)
+        avg_revenue = st.number_input("Average Monthly Revenue per Customer ($)", min_value=10.0, value=70.0, step=5.0)
     
     with col_b:
         retention_rate = st.slider("Expected Retention Success Rate (%)", 0, 100, 25)
         campaign_cost = st.number_input("Retention Campaign Cost per Customer ($)", min_value=0.0, value=15.0, step=5.0)
 
     # Calculations
-    churn_prob = probability
-    expected_churners = num_customers * churn_prob
-    retained_customers = expected_churners * (retention_rate / 100)
-    revenue_saved = retained_customers * avg_customer_value * 12   # Annual revenue
-    total_campaign_cost = num_customers * campaign_cost
-    net_savings = revenue_saved - total_campaign_cost
+    expected_churners = num_customers * probability
+    retained = expected_churners * (retention_rate / 100)
+    revenue_saved = retained * avg_revenue * 12
+    total_cost = num_customers * campaign_cost
+    net_savings = revenue_saved - total_cost
 
-    # Display Results
-    st.markdown("### Estimated Business Impact")
-    
     col_res1, col_res2, col_res3 = st.columns(3)
     with col_res1:
         st.metric("Expected Churners", f"{expected_churners:.0f}")
     with col_res2:
-        st.metric("Customers You Can Retain", f"{retained_customers:.0f}", f"+{retention_rate}% success")
+        st.metric("Customers Retained", f"{retained:.0f}")
     with col_res3:
-        st.metric("Potential Annual Revenue Saved", f"${revenue_saved:,.0f}")
+        st.metric("Annual Revenue Saved", f"${revenue_saved:,.0f}")
 
-    st.metric("Net Savings After Campaign Cost", f"${net_savings:,.0f}", 
-              delta=f"${net_savings:,.0f}" if net_savings > 0 else f"${net_savings:,.0f}")
+    st.metric("Net Savings After Campaign", f"${net_savings:,.0f}", 
+              delta="Positive" if net_savings > 0 else "Negative")
 
     if net_savings > 0:
-        st.success(f"✅ This retention campaign could save your business **${net_savings:,.0f}** annually!")
-    else:
-        st.warning("⚠️ Campaign cost is higher than expected savings. Consider optimizing cost or targeting higher-risk customers.")
+        st.success(f"✅ This strategy could save approximately **${net_savings:,.0f}** annually!")
 
 # SHAP Section
 with st.expander("🔍 Explain This Prediction (SHAP Analysis)", expanded=False):
@@ -167,7 +168,6 @@ with st.expander("🔍 Explain This Prediction (SHAP Analysis)", expanded=False)
     shap_values = explainer.shap_values(X_processed)
     
     col_a, col_b = st.columns(2)
-    
     with col_a:
         st.write("**Feature Contributions**")
         explanation = shap.Explanation(
@@ -186,4 +186,4 @@ with st.expander("🔍 Explain This Prediction (SHAP Analysis)", expanded=False)
         fig_imp = px.bar(importance, orientation='h', title="Top Important Features")
         st.plotly_chart(fig_imp, width='stretch')
 
-st.caption("ChurnGuard • XGBoost + Pipeline + SHAP + Business ROI Calculator ")
+st.caption("ChurnGuard • XGBoost + Pipeline + SHAP + Business ROI ")
