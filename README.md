@@ -8,13 +8,6 @@ A clean, modern, and business-focused ML project ideal for freelancing.
 ## Live Demo
 *(Add link after deploying on Streamlit Cloud)*
 
-## Screenshots
-
-![Low Churn Risk](screenshots/Screenshot 2026-04-20 141918.png)
-![High Churn Risk](screenshots/Screenshot 2026-04-20 171244.png)
-![Business ROI Calculator](screenshots/Screenshot 2026-04-20 172600.png)
-![SHAP Explanation](screenshots\Screenshot 2026-04-20 171612.png)
-
 ## ✨ Key Features
 - Interactive Single Customer Prediction with beautiful gauge
 - **Business ROI / Savings Calculator** (shows real monetary value)
@@ -76,9 +69,6 @@ customer-churn-predictor/
    ```bash
    streamlit run app.py
    ```
-
-## 📸 Screenshots
-(Add 6-8 high-quality screenshots in the `screenshots/` folder)
 
 ## 📈 Business Impact
 Helps telecom and SaaS companies:
