@@ -77,8 +77,8 @@ Helps telecom and SaaS companies:
 - Save significant revenue through proactive campaigns
 
 ## 🔮 Future Enhancements
-Bulk prediction with results download
-Model comparison dashboard
-Docker deployment
+- Bulk prediction with results download
+- Model comparison dashboard
+- Docker deployment
 
 ---
